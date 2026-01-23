@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-time-app
+spec:
+  selector:
+    matchLabels:
+      app: sample-time-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sample-time-app
+    spec:
+      containers:
+      - name: sample-time-app
+        image: sample-time-app:latest
+        imagePullPolicy: Never # Crucial for local images
+        ports:
+        - containerPort: 80
