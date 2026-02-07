@@ -1,5 +1,5 @@
 from flask import Flask
-from datetime import datetime
+from datetime import datetime, timezone
 app = Flask(__name__)
 
 
@@ -9,7 +9,7 @@ def hello_world():
 
 @app.route('/time')
 def get_time():
-    return datetime.now().strftime("%H:%M:%S")
+    return datetime.now(timezone.utc).strftime("%H:%M:%S %Z")
 
 
 app.run(host='0.0.0.0',
