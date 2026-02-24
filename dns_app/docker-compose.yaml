@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  authoritative:
+    build: ./authoritative_server
+    ports:
+      - "53533:53533/udp"
+    volumes:
+      - dns_data:/app/data
+    networks:
+      - appnet
+
+  fibonacci:
+    build: ./fibonacci_server
+    ports:
+      - "8001:8000"
+    networks:
+      - appnet
+
+  user:
+    build: ./user_server
+    ports:
+      - "8000:8000"
+    depends_on:
+      - authoritative
+      - fibonacci
+    networks:
+      - appnet
+
+volumes:
+  dns_data:
+
+networks:
+  appnet:
